@@ -31,8 +31,6 @@ def list_runs(limit=50):
         c.close()
 
 def get_run(run_id):
-    from app.services.flap_open_view import open_flap_bare
-
     c = connect()
     try:
         row = c.execute(
@@ -42,16 +40,8 @@ def get_run(run_id):
         ).fetchone()
         if not row:
             return None
-        d = _row_to_dict(row)
-        d["result"] = open_flap_bare(
-            d["result"],
-            {
-                "length": d.get("box_length"),
-                "width": d.get("box_width"),
-                "height": d.get("box_height"),
-                "overlap": d.get("overlap"),
-            },
-        )
-        return d
+        # 详情即写入时固化的快照：flap_m / 有效表面积 / paper_m2 原样返回，
+        # 不按当前盒主数据重算，也不随后续默认折入变化而回刷。
+        return _row_to_dict(row)
     finally:
         c.close()

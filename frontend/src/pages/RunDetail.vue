@@ -23,7 +23,7 @@ onMounted(async () => {
       <h1>用纸档 #{{ run.id }}</h1>
       <p class="lede">
         {{ run.box_name }} · 折边系数 {{ run.overlap }}
-        <span class="pill">开放视图：折入深度保留，面积取开放路径</span>
+        <span class="pill">快照视图：折入深度、有效面与用纸均取写入时固化值</span>
       </p>
       <div class="result-board">
         <div class="figure">{{ run.result.paper_m2 }}<span>m²</span></div>
